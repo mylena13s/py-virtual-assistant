@@ -1,55 +1,69 @@
-import wolframalpha
-import wikipedia
 from tkinter import *
+import wikipedia
 import speech_recognition as sr
+import gui
 
-def listen_and_respond():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Hello, I'm listening...")
-        audio = r.listen(source)
-
+def listen_and_respond(response_text):
     try:
-        text = r.recognize_google(audio)
-        print('You said: ' + text)
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            print("Hello, I'm listening...")
+            r.adjust_for_ambient_noise(source, duration=1)
+            audio = r.listen(source, timeout=5)
+            print("Audio captured. Processing...")
+            
+        text = r.recognize_google(audio, language='en-US')
+        print("You said: " + text + "?")
 
         if text.lower() == "stop":
             print("The program will exit.")
-            root.destroy()  
+            root.destroy()
             return
 
-        app_id = "Q6AA9P-KKLX2VEQ76"
-        client = wolframalpha.Client(app_id)
-        res = client.query(text)
+        try:
+            answer = wikipedia.summary(text)
+            response_text.config(state=NORMAL)
+            response_text.delete(1.0, END)
+            response_text.insert(END, "Answer from Wikipedia:\n" + answer)
+            response_text.config(state=DISABLED)
+            print("Answer from Wikipedia:")
+            print(answer)
+        except wikipedia.exceptions.DisambiguationError as e:
+            response_text.config(state=NORMAL)
+            response_text.delete(1.0, END)
+            response_text.insert(END, "There are multiple results for this query. Please be more specific.")
+            response_text.config(state=DISABLED)
+            print("There are multiple results for this query. Please be more specific.")
+        except wikipedia.exceptions.PageError:
+            response_text.config(state=NORMAL)
+            response_text.delete(1.0, END)
+            response_text.insert(END, "No results found on Wikipedia. Please try again.")
+            response_text.config(state=DISABLED)
+            print("No results found on Wikipedia. Please try again.")
 
-        answer = next(res.results).text
-        response_label.config(text="Answer from Wolfram|Alpha:\n" + answer)
-        print("Answer from Wolfram|Alpha:")
-        print(answer)
+    except TimeoutError:
+        print("No speech detected. Please try again.")
+        response_text.config(state=NORMAL)
+        response_text.delete(1.0, END)
+        response_text.insert(END, "No speech detected. Please try again.")
+        response_text.config(state=DISABLED)
 
-    except wolframalpha.Client.RequestError:
-        print("No results from Wolfram|Alpha. Trying Wikipedia...")
-        answer = wikipedia.summary(text)
-        response_label.config(text="Answer from Wikipedia:\n" + answer)
-        print("Answer from Wikipedia:")
-        print(answer)
+    except sr.RequestError:
+        print("Could not request results. Please check your internet connection.")
+        response_text.config(state=NORMAL)
+        response_text.delete(1.0, END)
+        response_text.insert(END, "Could not request results. Please check your internet connection.")
+        response_text.config(state=DISABLED)
 
     except Exception as e:
         error_message = "Sorry, I couldn't understand you clearly. Can you please rephrase your question?"
-        response_label.config(text=error_message)
+        response_text.config(state=NORMAL)
+        response_text.delete(1.0, END)
+        response_text.insert(END, error_message)
+        response_text.config(state=DISABLED)
         print(error_message)
         print(e)
 
-# Estrutura básica da GUI
-root = Tk()
-root.title("Virtual Assistant")
-
-# Label para exibir as respostas
-response_label = Label(root, text="", wraplength=400)
-response_label.pack(pady=10)
-
-# Botão para ouvir e responder
-listen_button = Button(root, text="Listen", command=listen_and_respond)
-listen_button.pack(pady=10)
-
-root.mainloop()
+if __name__ == "__main__":
+    root, response_text = gui.setup_gui(listen_and_respond)
+    root.mainloop()
