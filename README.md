@@ -21,7 +21,7 @@ _This Python script is a voice-command virtual assistant that performs Wikipedia
 6. To stop the program, simply say "Stop" or close the application window.
 
 
-![Requirements Diagram](diagram/requirements.png)
+![Requirements Diagram](media/requirements.png)
 
 _Please make sure to ask your questions in English!_
 
