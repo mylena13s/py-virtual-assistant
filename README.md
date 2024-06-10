@@ -20,9 +20,6 @@ _This Python script is a voice-command virtual assistant that performs Wikipedia
 5. The assistant will process your query and display the relevant information from Wikipedia.
 6. To stop the program, simply say "Stop" or close the application window.
 
-
-![Requirements Diagram](media/requirements.png)
-
 _Please make sure to ask your questions in English!_
 
 ### How to Contribute
