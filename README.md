@@ -6,9 +6,7 @@ _This Python script is a voice-command virtual assistant that performs Wikipedia
 
 1. Make sure you have the required libraries installed. You can install them using pip:
     ```sh
-    pip install wikipedia
-    pip install SpeechRecognition
-    pip install PySide6
+   pip install -r requirements.txt
     ```
 
 2. Run the main script by executing the following command in your terminal:
