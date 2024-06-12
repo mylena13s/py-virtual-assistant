@@ -1,25 +1,23 @@
-# 🐍🔊 Python Virtual Assistant: Wikipedia Voice Search
+# Assistente Virtual em Python: Pesquisa por Voz na Wikipedia 🐍🔊
 
-_This Python script is a voice-command virtual assistant that performs Wikipedia searches._
+Este script em Python é um assistente virtual por comando de voz que realiza buscas na Wikipedia.
 
-### Usage
+Uso
 
-1. Make sure you have the required libraries installed. You can install them using pip:
+1. Certifique-se de ter as bibliotecas necessárias instaladas. Você pode instalá-las usando pip:
     ```sh
-   pip install -r requirements.txt
+    pip install -r requirements.txt
     ```
 
-2. Run the main script by executing the following command in your terminal:
+2. Execute o script principal digitando o seguinte comando no seu terminal:
     ```sh
     python main.py
     ```
-3. Once the application window appears, click the "Listen" button to activate the voice command feature.
-4. Speak your query when prompted. For example, you can say "Who was Alan Turing?".
-5. The assistant will process your query and display the relevant information from Wikipedia.
-6. To stop the program, simply say "Stop" or close the application window.
+3. Quando a janela do aplicativo aparecer, clique no botão "Listen" para ativar o recurso de comando de voz.
+4. Fale sua consulta quando solicitado. Por exemplo, você pode dizer "Who was Alan Turing?".
+5. O assistente processará sua consulta e exibirá as informações relevantes da Wikipedia.
+6. Para parar o programa, simplesmente diga "Stop" ou feche a janela do aplicativo.
 
-_Please make sure to ask your questions in English!_
+Obs: Por favor, certifique-se de fazer suas perguntas em inglês!
 
-### How to Contribute
-
-Contributions are welcome! If you have suggestions for improvements, feel free to open an issue or submit a pull request :)
+Contribuições são bem-vindas! Se você tiver sugestões de melhorias, sinta-se à vontade para abrir uma issue ou enviar um pull request :)
